@@ -80,13 +80,14 @@
     <!-- Custom JS -->
     <script>
       $(document).ready(function() {
-        $('#bizzy-type-percentage').bind('click', function() {
-          $('#bizzy-value-label-usd').fadeOut();
-          $('#bizzy-value-label-percent').fadeIn();
-        });
-        $('#bizzy-type-fixed').bind('click', function() {
-          $('#bizzy-value-label-percent').fadeOut();
-          $('#bizzy-value-label-usd').fadeIn();
+        $("input[name=bizzy-type]").change(function(){
+          if ($('input[name=bizzy-type]:checked').val() == "percentage") {
+            $('#bizzy-value-label-usd').fadeOut();
+            $('#bizzy-value-label-percent').fadeIn();
+          } else {
+            $('#bizzy-value-label-percent').fadeOut();
+            $('#bizzy-value-label-usd').fadeIn();
+          }
         });
         $('#bizzy-submit').bind('click', function() {
           var couponName = $('#bizzy-name').val();
