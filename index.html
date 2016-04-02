@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bizzy | Coupon Challenge</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png">
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <!-- FontAwesome -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" media="screen">
+    <!-- Main css -->
+    <link href="css/main.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <div class="header">
+      <h1>Create custom coupons for your Shopify customers</h1>
+    </div>
+    <div class="content">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2 col-xs-12">
+          <h3>Create your coupon instantly</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="bizzy-name">Coupon Name <i>(optional)</i></label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-tag"></i></div>
+                  <input type="text" class="form-control" id="bizzy-name" placeholder="Example: Cookies4FREE">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="bizzy-type">Coupon Type</label><br>
+                <div class="btn-group" data-toggle="buttons">
+                  <label class="btn btn-default radio-btn active">
+                    <input type="radio" name="bizzy-type" value="percentage" autocomplete="off" checked>
+                    <i class="fa fa-percent"></i>
+                  </label>
+                  <label class="btn btn-default radio-btn">
+                    <input type="radio" name="bizzy-type" value="fixed_amount" autocomplete="off">
+                    <i class="fa fa-usd"></i>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="bizzy-amount">Coupon Value</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-usd"></i></div>
+                  <input type="text" class="form-control" id="bizzy-amount" placeholder="Example: 10">
+                  <div class="input-group-addon"><i class="fa fa-percent"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="bizzy-min">Minimum Order</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-usd"></i></div>
+                  <input type="text" class="form-control" id="bizzy-min" placeholder="Example: 50">
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary btn-lg" id="bizzy-submit">Create Coupon</button>
+        </div>
+      </div>
+    </div>
+    <!-- jQuery -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <!-- Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script>
+      $(document).ready(function() {
+        $('#bizzy-submit').bind('click', function() {
+          var couponName = $('#bizzy-name').val();
+          var couponType = $('#bizzy-type').val();
+          var couponAmount = $('#bizzy-amount').val();
+          var couponMinimum = $('#bizzy-min').val();
+          var data = {
+            'name': couponName,
+            'type': couponType,
+            'amount': couponAmount,
+            'min': couponMinimum
+          };
+          $.ajax({
+            url: "/api/coupon.php",
+            type: "POST",
+            data: data,
+            success: function(response) {
+              alert("Success! " + response);
+            },
+            error: function(error) {
+              alert("Error..");
+            }
+          })
+        });
+      });
+    </script>
+  </body>
+</html>
