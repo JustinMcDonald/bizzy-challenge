@@ -99,6 +99,26 @@
           var couponType = $('input[name=bizzy-type]:checked').val();
           var couponAmount = $('#bizzy-amount').val();
           var couponMinimum = $('#bizzy-min').val();
+          if (couponType == "") {
+            alert("Please select a coupon type.");
+            return;
+          }
+          else if (couponAmount == "") {
+            alert("Please select a coupon amount.");
+            return;
+          }
+          else if (!$.isNumeric(couponAmount)) {
+            alert("Please provide a numerical coupon amount (using only digits 0-9).");
+            return;
+          }
+          else if (couponMinimum == "") {
+            alert("Please select a minimum order amount.");
+            return;
+          }
+          else if (!$.isNumeric(couponMinimum)) {
+            alert("Please provide a numerical minimum order amount (using only digits 0-9).");
+            return;
+          }
           var data = {
             'name': couponName,
             'type': couponType,
@@ -111,10 +131,14 @@
             data: data,
             dataType: "json",
             success: function(response) {
-              alert("Success! " + response);
+              if (response.error == 0) {
+                console.log(response.data);
+                alert("Success! " + response.message);
+              }
+              else alert(response.message);
             },
             error: function(error) {
-              alert("Error..");
+              alert("Error: " + error);
             }
           })
         });

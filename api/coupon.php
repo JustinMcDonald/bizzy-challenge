@@ -4,6 +4,9 @@ $url = "https://justins-cookies.myshopify.com";
 $endpoint = "/admin/discounts.json";
 $requestType = "POST";
 
+$apiKey = "37dbae720e281c0089bf605364f5a012";
+$secret = "048ba5add1d40877aed0fe0687574104";
+
 $response = array('error' => 0, 'message' => "Success", 'data' => "EXAMPLEcode16");
 
 $name = (isset($_POST['name'])) ? $_POST['name'] : "";
