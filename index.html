@@ -15,14 +15,14 @@
   </head>
   <body>
     <div class="header">
-      <h1>Create custom coupons for your Shopify customers</h1>
+      <h1>Create custom coupons for your <span style="color:#7ab55c;">Shopify</span> customers</h1>
     </div>
     <div class="content">
       <div class="row">
         <div class="col-md-8 col-md-offset-2 col-xs-12">
           <h3>Create your coupon instantly</h3>
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-7">
               <div class="form-group">
                 <label for="bizzy-name">Coupon Name (optional)</label>
                 <div class="input-group">
@@ -38,11 +38,11 @@
                 <label for="bizzy-type">Coupon Type</label><br>
                 <div class="btn-group" data-toggle="buttons">
                   <label class="btn btn-default radio-btn active">
-                    <input type="radio" name="bizzy-type" value="percentage" autocomplete="off" checked>
+                    <input id="bizzy-type-percentage" type="radio" name="bizzy-type" value="percentage" autocomplete="off" checked>
                     <i class="fa fa-percent"></i>
                   </label>
                   <label class="btn btn-default radio-btn">
-                    <input type="radio" name="bizzy-type" value="fixed_amount" autocomplete="off">
+                    <input id="bizzy-type-fixed" type="radio" name="bizzy-type" value="fixed_amount" autocomplete="off">
                     <i class="fa fa-usd"></i>
                   </label>
                 </div>
@@ -52,9 +52,9 @@
               <div class="form-group">
                 <label for="bizzy-amount">Coupon Value</label>
                 <div class="input-group">
-                  <div class="input-group-addon"><i class="fa fa-usd"></i></div>
-                  <input type="text" class="form-control" id="bizzy-amount" placeholder="Example: 10">
-                  <div class="input-group-addon"><i class="fa fa-percent"></i></div>
+                  <div id="bizzy-value-label-usd" class="input-group-addon"><i class="fa fa-usd"></i></div>
+                  <input type="number" class="form-control" id="bizzy-amount" placeholder="Example: 10">
+                  <div id="bizzy-value-label-percent" class="input-group-addon" style="display:none;"><i class="fa fa-percent"></i></div>
                 </div>
               </div>
             </div>
@@ -63,7 +63,7 @@
                 <label for="bizzy-min">Minimum Order</label>
                 <div class="input-group">
                   <div class="input-group-addon"><i class="fa fa-usd"></i></div>
-                  <input type="text" class="form-control" id="bizzy-min" placeholder="Example: 50">
+                  <input type="number" class="form-control" id="bizzy-min" placeholder="Example: 50">
                 </div>
               </div>
             </div>
@@ -80,9 +80,17 @@
     <!-- Custom JS -->
     <script>
       $(document).ready(function() {
+        $('#bizzy-type-percentage').bind('click', function() {
+          $('#bizzy-value-label-usd').fadeOut();
+          $('#bizzy-value-label-percent').fadeIn();
+        });
+        $('#bizzy-type-fixed').bind('click', function() {
+          $('#bizzy-value-label-percent').fadeOut();
+          $('#bizzy-value-label-usd').fadeIn();
+        });
         $('#bizzy-submit').bind('click', function() {
           var couponName = $('#bizzy-name').val();
-          var couponType = $('#bizzy-type').val();
+          var couponType = $('input[name=bizzy-type]:checked').val();
           var couponAmount = $('#bizzy-amount').val();
           var couponMinimum = $('#bizzy-min').val();
           var data = {
