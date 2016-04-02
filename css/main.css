@@ -1,0 +1,11 @@
+.header {
+	min-height: 400px;
+    background-image: url(/img/shopify-bg.jpg);
+    background-size: cover;
+}
+
+.header > h1 {
+	text-align: center;
+    padding-top: 180px;
+    padding-bottom:20px;
+}
