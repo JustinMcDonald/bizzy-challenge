@@ -17,3 +17,8 @@ body {
     color:#fff;
     margin-top: 0px;
 }
+
+.content {
+	overflow: hidden;
+	position: relative;
+}

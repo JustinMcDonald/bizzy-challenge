@@ -15,61 +15,66 @@
   </head>
   <body>
     <div class="header">
-      <h1>Create custom coupons for your <span style="color:#7ab55c;">Shopify</span> customers</h1>
+      <h1>Create custom coupons for your <span style="color:#B6EB9B;">Shopify</span> customers</h1>
     </div>
     <div class="content">
-      <div class="row">
-        <div class="col-md-8 col-md-offset-2 col-xs-12">
-          <h3>Create your coupon instantly</h3>
-          <div class="row">
-            <div class="col-md-7">
-              <div class="form-group">
-                <label for="bizzy-name">Coupon Name (optional)</label>
-                <div class="input-group">
-                  <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                  <input type="text" class="form-control" id="bizzy-name" placeholder="Example: Cookies4FREE">
+      <div id="bizzy-form">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2 col-xs-12">
+            <h3>Create your coupon instantly</h3>
+            <div class="row">
+              <div class="col-md-7">
+                <div class="form-group">
+                  <label for="bizzy-name">Coupon Name (optional)</label>
+                  <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                    <input type="text" class="form-control" id="bizzy-name" placeholder="Example: Cookies4FREE">
+                  </div>
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="bizzy-type">Coupon Type</label><br>
+                  <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default radio-btn active">
+                      <input id="bizzy-type-percentage" type="radio" name="bizzy-type" value="percentage" autocomplete="off" checked>
+                      <i class="fa fa-percent"></i>
+                    </label>
+                    <label class="btn btn-default radio-btn">
+                      <input id="bizzy-type-fixed" type="radio" name="bizzy-type" value="fixed_amount" autocomplete="off">
+                      <i class="fa fa-usd"></i>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="form-group">
+                  <label for="bizzy-amount">Coupon Value</label>
+                  <div class="input-group">
+                    <div id="bizzy-value-label-usd" class="input-group-addon"><i class="fa fa-usd"></i></div>
+                    <input type="number" class="form-control" id="bizzy-amount" placeholder="Example: 10" min="0">
+                    <div id="bizzy-value-label-percent" class="input-group-addon" style="display:none;"><i class="fa fa-percent"></i></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="form-group">
+                  <label for="bizzy-min">Minimum Order</label>
+                  <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-usd"></i></div>
+                    <input type="number" class="form-control" id="bizzy-min" placeholder="Example: 50">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button id="bizzy-submit" type="button" class="btn btn-primary btn-lg">Create Coupon</button>
           </div>
-          <div class="row">
-            <div class="col-md-2">
-              <div class="form-group">
-                <label for="bizzy-type">Coupon Type</label><br>
-                <div class="btn-group" data-toggle="buttons">
-                  <label class="btn btn-default radio-btn active">
-                    <input id="bizzy-type-percentage" type="radio" name="bizzy-type" value="percentage" autocomplete="off" checked>
-                    <i class="fa fa-percent"></i>
-                  </label>
-                  <label class="btn btn-default radio-btn">
-                    <input id="bizzy-type-fixed" type="radio" name="bizzy-type" value="fixed_amount" autocomplete="off">
-                    <i class="fa fa-usd"></i>
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-5">
-              <div class="form-group">
-                <label for="bizzy-amount">Coupon Value</label>
-                <div class="input-group">
-                  <div id="bizzy-value-label-usd" class="input-group-addon"><i class="fa fa-usd"></i></div>
-                  <input type="number" class="form-control" id="bizzy-amount" placeholder="Example: 10">
-                  <div id="bizzy-value-label-percent" class="input-group-addon" style="display:none;"><i class="fa fa-percent"></i></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-5">
-              <div class="form-group">
-                <label for="bizzy-min">Minimum Order</label>
-                <div class="input-group">
-                  <div class="input-group-addon"><i class="fa fa-usd"></i></div>
-                  <input type="number" class="form-control" id="bizzy-min" placeholder="Example: 50">
-                </div>
-              </div>
-            </div>
-          </div>
-          <button id="bizzy-submit" type="button" class="btn btn-primary btn-lg">Create Coupon</button>
         </div>
+      </div>
+      <div id="bizzy-success" style="display:none;position:absolute;left:100%;">
+        Success!
       </div>
     </div>
     <!-- jQuery -->
@@ -104,6 +109,7 @@
             url: "/api/coupon.php",
             type: "POST",
             data: data,
+            dataType: "json",
             success: function(response) {
               alert("Success! " + response);
             },
