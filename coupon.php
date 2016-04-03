@@ -28,6 +28,8 @@ if ($result === FALSE) {
   exit;
 }
 
+echo $result;
+
 ?>
 
 <!DOCTYPE html>
@@ -83,11 +85,11 @@ if ($result === FALSE) {
               </div>
               <div class="col-md-5">
                 <div class="form-group">
-                  <label for="bizzy-amount">Coupon Value</label>
+                  <label for="bizzy-amount">Discount Value</label>
                   <div class="input-group">
-                    <div id="bizzy-value-label-usd" class="input-group-addon"><i class="fa fa-usd"></i></div>
+                    <div id="bizzy-value-label-usd" class="input-group-addon" style="display:none;"><i class="fa fa-usd"></i></div>
                     <input type="number" class="form-control" id="bizzy-amount" placeholder="Example: 10" min="0">
-                    <div id="bizzy-value-label-percent" class="input-group-addon" style="display:none;"><i class="fa fa-percent"></i></div>
+                    <div id="bizzy-value-label-percent" class="input-group-addon"><i class="fa fa-percent"></i></div>
                   </div>
                 </div>
               </div>
@@ -137,7 +139,7 @@ if ($result === FALSE) {
             return;
           }
           else if (couponAmount == "") {
-            alert("Please select a coupon amount.");
+            alert("Please provide a coupon amount.");
             return;
           }
           else if (!$.isNumeric(couponAmount)) {
@@ -145,7 +147,7 @@ if ($result === FALSE) {
             return;
           }
           else if (couponMinimum == "") {
-            alert("Please select a minimum order amount.");
+            alert("Please provide a minimum order amount.");
             return;
           }
           else if (!$.isNumeric(couponMinimum)) {
