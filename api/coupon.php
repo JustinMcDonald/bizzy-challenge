@@ -35,7 +35,7 @@ else {
 	exit;
 }
 
-$url = $shop . $endpoint;
+$url = "https://" . $shop . $endpoint;
 
 $discount = array("discount_type"=>$type, "value"=>$amount, "minimum_order_amount"=>$min);
 
