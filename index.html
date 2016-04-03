@@ -137,7 +137,7 @@
           var couponType = $('input[name=bizzy-type]:checked').val();
           var couponAmount = $('#bizzy-amount').val();
           var couponMinimum = $('#bizzy-min').val();
-          var store = $('#bizzy-store').val();
+          var shop = $('#bizzy-store').val();
           var email = $('#bizzy-email').val();
           var password = $('#bizzy-pwd').val();
           if (store == "") {
@@ -179,7 +179,6 @@
             'type': couponType,
             'amount': couponAmount,
             'min': couponMinimum,
-            'accessToken': accessToken,
             'shop': shop,
             'email': email,
             'password': password
