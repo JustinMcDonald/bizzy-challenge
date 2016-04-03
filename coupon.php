@@ -28,7 +28,7 @@ if ($result === FALSE) {
   exit;
 }
 
-echo $result;
+$resultJSON = json_decode($result);
 
 ?>
 
@@ -118,7 +118,7 @@ echo $result;
 
     <!-- Custom JS -->
     <script>
-      var accessToken = "<?php echo $result['access_token']; ?>";
+      var accessToken = "<?php echo $resultJSON['access_token']; ?>";
       $(document).ready(function() {
         $("input[name=bizzy-type]").change(function(){
           if ($('input[name=bizzy-type]:checked').val() == "percentage") {
