@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bizzy | Coupon Challenge</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png">
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <!-- FontAwesome -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" media="screen">
+    <!-- Main css -->
+    <link href="css/main.css" rel="stylesheet" media="screen">
+    <!-- Roboto Google font -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Create custom coupons for your <span style="color:#B6EB9B;">Shopify</span> customers</h1>
+    </div>
+    <div class="content">
+      <div id="bizzy-form">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2 col-xs-12">
+            <h3>First, connect with your Shopify store</h3>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="bizzy-store">Store Name</label>
+                  <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-shopping-basket"></i></div>
+                    <input type="text" class="form-control" id="bizzy-store" placeholder="Example: mrshoelaces">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button id="bizzy-submit" type="button" class="btn btn-primary btn-lg">Connect with Shopify</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- jQuery -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <!-- Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- Old js from Shopify APP attempt -->
+    <script>
+      $('#bizzy-submit').bind('click', function() {
+        var store = $('#bizzy-store').val();
+        if (store == "") {
+          alert("Please provide your Shopify store name.");
+          return;
+        }
+        location.href = "https://"+store+".myshopify.com/admin/oauth/authorize?client_id=37dbae720e281c0089bf605364f5a012&scope=write_products,write_content&redirect_uri=http://bizzy.justingenuity.com/coupon.php&state=TEST";
+      });
+    </script>
+
+    <!-- Custom JS -->
+    <!--<script>
+      $(document).ready(function() {
+        $("input[name=bizzy-type]").change(function(){
+          if ($('input[name=bizzy-type]:checked').val() == "percentage") {
+            $('#bizzy-value-label-usd').fadeOut();
+            $('#bizzy-value-label-percent').fadeIn();
+          } else {
+            $('#bizzy-value-label-percent').fadeOut();
+            $('#bizzy-value-label-usd').fadeIn();
+          }
+        });
+        $('#bizzy-submit').bind('click', function() {
+          var couponName = $('#bizzy-name').val();
+          var couponType = $('input[name=bizzy-type]:checked').val();
+          var couponAmount = $('#bizzy-amount').val();
+          var couponMinimum = $('#bizzy-min').val();
+          var shop = $('#bizzy-store').val();
+          var email = $('#bizzy-email').val();
+          var password = $('#bizzy-pwd').val();
+          if (shop == "") {
+            alert("Please provide your Shopify store name.");
+            return;
+          }
+          if (email == "") {
+            alert("Please provide your Shopify username/email.");
+            return;
+          }
+
+          if (password == "") {
+            alert("Please provide your Shopify password.");
+            return;
+          }
+
+          if (couponType == "") {
+            alert("Please select a coupon type.");
+            return;
+          }
+          else if (couponAmount == "") {
+            alert("Please provide a coupon amount.");
+            return;
+          }
+          else if (!$.isNumeric(couponAmount)) {
+            alert("Please provide a numerical coupon amount (using only digits 0-9).");
+            return;
+          }
+          else if (couponMinimum == "") {
+            alert("Please provide a minimum order amount.");
+            return;
+          }
+          else if (!$.isNumeric(couponMinimum)) {
+            alert("Please provide a numerical minimum order amount (using only digits 0-9).");
+            return;
+          }
+          var data = {
+            'name': couponName,
+            'type': couponType,
+            'amount': couponAmount,
+            'min': couponMinimum,
+            'shop': shop,
+            'email': email,
+            'password': password
+          };
+          $.ajax({
+            url: "/api/coupon2.php",
+            type: "POST",
+            data: data,
+            dataType: "json",
+            success: function(response) {
+              if (response.error == 0) {
+                console.log(response.data);
+                console.log("Success! " + response.message);
+              }
+              else alert(response.message);
+            },
+            error: function(error) {
+              alert("Error: " + error);
+            }
+          });
+        });
+      });
+    </script>-->
+  </body>
+</html>
