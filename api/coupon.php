@@ -25,6 +25,11 @@ else {
 	echo json_encode(array('error' => 1, 'message' => "Please provide a minimum order amount.", 'data' => ""));
 	exit;
 }
+if (isset($_POST['accessToken'])) $accessToken = $_POST['accessToken'];
+else {
+	echo json_encode(array('error' => 1, 'message' => "Missing access token.", 'data' => ""));
+	exit;
+}
 
 $discount = array("discount_type"=>$type, "value"=>$amount, "minimum_order_amount"=>$min);
 
@@ -37,7 +42,7 @@ $requestJSON = json_encode($request);
 // use key 'http' even if you send the request to https://...
 $options = array(
     'http' => array(
-        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+        'header'  => "Content-type: application/x-www-form-urlencoded\r\nX-Shopify-Access-Token: $accessToken\r\n",
         'method'  => $requestType,
         'content' => $requestJSON
     )

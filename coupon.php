@@ -1,3 +1,35 @@
+<?php 
+
+$code = $_GET['code'];
+$hmac = $_GET['hmac'];
+$shop = $_GET['shop'];
+$signature = $_GET['signature'];
+$state = $_GET['state'];
+
+$url = "https://" . $shop . "/admin/oauth/access_token";
+
+$apiKey = "37dbae720e281c0089bf605364f5a012";
+$secret = "048ba5add1d40877aed0fe0687574104";
+
+$data = array('client_id' => $apiKey, 'client_secret' => $secret, 'code' => $code);
+
+// use key 'http' even if you send the request to https://...
+$options = array(
+    'http' => array(
+        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+        'method'  => "POST",
+        'content' => http_build_query($data)
+    )
+);
+$context  = stream_context_create($options);
+$result = file_get_contents($url, false, $context);
+if ($result === FALSE) { 
+  echo json_encode(array('error' => 1, 'message' => "Error: unable to connect with Shopify.", 'data' => ""));
+  exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -84,6 +116,7 @@
 
     <!-- Custom JS -->
     <script>
+      var accessToken = "<?php echo $result['access_token']; ?>";
       $(document).ready(function() {
         $("input[name=bizzy-type]").change(function(){
           if ($('input[name=bizzy-type]:checked').val() == "percentage") {
@@ -123,7 +156,8 @@
             'name': couponName,
             'type': couponType,
             'amount': couponAmount,
-            'min': couponMinimum
+            'min': couponMinimum,
+            'accessToken': accessToken
           };
           $.ajax({
             url: "/api/coupon.php",
