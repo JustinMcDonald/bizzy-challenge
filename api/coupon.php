@@ -48,7 +48,7 @@ $requestJSON = json_encode($request);
 // use key 'http' even if you send the request to https://...
 $options = array(
     'http' => array(
-        'header'  => "Content-type: application/x-www-form-urlencoded\r\nX-Shopify-Access-Token: $accessToken\r\n",
+        'header'  => "X-Shopify-Access-Token: " . $accessToken . "\r\n", //"Content-type: application/x-www-form-urlencoded\r\nX-Shopify-Access-Token: $accessToken\r\n",
         'method'  => $requestType,
         'content' => http_build_query($request) //$requestJSON
     )
