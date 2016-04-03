@@ -1,6 +1,5 @@
 <?php
 
-$url = "https://justins-cookies.myshopify.com";
 $endpoint = "/admin/discounts.json";
 $requestType = "POST";
 
@@ -30,6 +29,13 @@ else {
 	echo json_encode(array('error' => 1, 'message' => "Missing access token.", 'data' => ""));
 	exit;
 }
+if (isset($_POST['shop'])) $shop = $_POST['shop'];
+else {
+	echo json_encode(array('error' => 1, 'message' => "Missing shop namespace.", 'data' => ""));
+	exit;
+}
+
+$url = $shop . $endpoint;
 
 $discount = array("discount_type"=>$type, "value"=>$amount, "minimum_order_amount"=>$min);
 
@@ -48,7 +54,7 @@ $options = array(
     )
 );
 $context  = stream_context_create($options);
-$result = file_get_contents($url . $endpoint, false, $context);
+$result = file_get_contents($url, false, $context);
 if ($result === FALSE) { 
 	echo json_encode(array('error' => 1, 'message' => "Error: unable to create shopify coupon.", 'data' => ""));
 	exit;

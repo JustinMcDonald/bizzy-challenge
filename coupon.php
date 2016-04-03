@@ -119,6 +119,7 @@ $resultJSON = json_decode($result);
     <!-- Custom JS -->
     <script>
       var accessToken = "<?php echo $resultJSON->access_token; ?>";
+      var shop = "<?php echo $shop; ?>";
       $(document).ready(function() {
         $("input[name=bizzy-type]").change(function(){
           if ($('input[name=bizzy-type]:checked').val() == "percentage") {
@@ -159,7 +160,8 @@ $resultJSON = json_decode($result);
             'type': couponType,
             'amount': couponAmount,
             'min': couponMinimum,
-            'accessToken': accessToken
+            'accessToken': accessToken,
+            'shop': shop
           };
           $.ajax({
             url: "/api/coupon.php",
