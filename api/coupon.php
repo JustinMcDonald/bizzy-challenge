@@ -56,7 +56,7 @@ $options = array(
 $context  = stream_context_create($options);
 $result = file_get_contents($url, false, $context);
 if ($result === FALSE) { 
-	echo json_encode(array('error' => 1, 'message' => "Error: unable to create shopify coupon.", 'data' => ""));
+	echo json_encode(array('error' => 1, 'message' => "Error: unable to create shopify coupon.", 'data' => $url));
 	exit;
 }
 

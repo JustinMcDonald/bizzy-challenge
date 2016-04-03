@@ -49,7 +49,7 @@ $resultJSON = json_decode($result);
   </head>
   <body>
     <div class="header">
-      <h1>Create custom coupons for your <span style="color:#B6EB9B;">Shopify</span> customers</h1>
+      <h1><span style="color:#B6EB9B;"><i class="fa fa-check"></i> Connected</span></h1>
     </div>
     <div class="content">
       <div id="bizzy-form">
