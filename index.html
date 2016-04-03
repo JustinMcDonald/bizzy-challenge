@@ -191,14 +191,14 @@
             success: function(response) {
               if (response.error == 0) {
                 console.log(response.data);
-                alert("Success! " + response.message);
+                console.log("Success! " + response.message);
               }
               else alert(response.message);
             },
             error: function(error) {
               alert("Error: " + error);
             }
-          })
+          });
         });
       });
     </script>

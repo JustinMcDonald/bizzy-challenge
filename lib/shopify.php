@@ -148,7 +148,7 @@ class PrivateAPI {
  			return true;
 		}
 
-		throw new \Exception('Failed to set token: ' . $input);
+		throw new \Exception('Failed to set token');
 	}
 
 	private function initGetData($url, $opts = []) {
