@@ -21,127 +21,36 @@
       <div id="bizzy-form">
         <div class="row">
           <div class="col-md-8 col-md-offset-2 col-xs-12">
-            <h3>Create your coupon instantly</h3>
+            <h3>First, connect with your Shopify store</h3>
             <div class="row">
               <div class="col-md-7">
                 <div class="form-group">
-                  <label for="bizzy-name">Coupon Name (optional)</label>
+                  <label for="bizzy-store">Store Name</label>
                   <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                    <input type="text" class="form-control" id="bizzy-name" placeholder="Example: Cookies4FREE">
+                    <div class="input-group-addon"><i class="fa fa-shopify"></i></div>
+                    <input type="text" class="form-control" id="bizzy-store" placeholder="Example: mrshoelaces">
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-2">
-                <div class="form-group">
-                  <label for="bizzy-type">Coupon Type</label><br>
-                  <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-default radio-btn active">
-                      <input id="bizzy-type-percentage" type="radio" name="bizzy-type" value="percentage" autocomplete="off" checked>
-                      <i class="fa fa-percent"></i>
-                    </label>
-                    <label class="btn btn-default radio-btn">
-                      <input id="bizzy-type-fixed" type="radio" name="bizzy-type" value="fixed_amount" autocomplete="off">
-                      <i class="fa fa-usd"></i>
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-5">
-                <div class="form-group">
-                  <label for="bizzy-amount">Coupon Value</label>
-                  <div class="input-group">
-                    <div id="bizzy-value-label-usd" class="input-group-addon"><i class="fa fa-usd"></i></div>
-                    <input type="number" class="form-control" id="bizzy-amount" placeholder="Example: 10" min="0">
-                    <div id="bizzy-value-label-percent" class="input-group-addon" style="display:none;"><i class="fa fa-percent"></i></div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-5">
-                <div class="form-group">
-                  <label for="bizzy-min">Minimum Order</label>
-                  <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-usd"></i></div>
-                    <input type="number" class="form-control" id="bizzy-min" placeholder="Example: 50">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <button id="bizzy-submit" type="button" class="btn btn-primary btn-lg">Create Coupon</button>
+            <button id="bizzy-submit" type="button" class="btn btn-primary btn-lg">Connect with Shopify</button>
           </div>
         </div>
-      </div>
-      <div id="bizzy-success" style="display:none;position:absolute;left:100%;">
-        Success!
       </div>
     </div>
     <!-- jQuery -->
     <script src="http://code.jquery.com/jquery.js"></script>
     <!-- Bootstrap -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-    <!-- Custom JS -->
+    <!-- Custom js -->
     <script>
-      $(document).ready(function() {
-        $("input[name=bizzy-type]").change(function(){
-          if ($('input[name=bizzy-type]:checked').val() == "percentage") {
-            $('#bizzy-value-label-usd').fadeOut();
-            $('#bizzy-value-label-percent').fadeIn();
-          } else {
-            $('#bizzy-value-label-percent').fadeOut();
-            $('#bizzy-value-label-usd').fadeIn();
-          }
-        });
-        $('#bizzy-submit').bind('click', function() {
-          var couponName = $('#bizzy-name').val();
-          var couponType = $('input[name=bizzy-type]:checked').val();
-          var couponAmount = $('#bizzy-amount').val();
-          var couponMinimum = $('#bizzy-min').val();
-          if (couponType == "") {
-            alert("Please select a coupon type.");
-            return;
-          }
-          else if (couponAmount == "") {
-            alert("Please select a coupon amount.");
-            return;
-          }
-          else if (!$.isNumeric(couponAmount)) {
-            alert("Please provide a numerical coupon amount (using only digits 0-9).");
-            return;
-          }
-          else if (couponMinimum == "") {
-            alert("Please select a minimum order amount.");
-            return;
-          }
-          else if (!$.isNumeric(couponMinimum)) {
-            alert("Please provide a numerical minimum order amount (using only digits 0-9).");
-            return;
-          }
-          var data = {
-            'name': couponName,
-            'type': couponType,
-            'amount': couponAmount,
-            'min': couponMinimum
-          };
-          $.ajax({
-            url: "/api/coupon.php",
-            type: "POST",
-            data: data,
-            dataType: "json",
-            success: function(response) {
-              if (response.error == 0) {
-                console.log(response.data);
-                alert("Success! " + response.message);
-              }
-              else alert(response.message);
-            },
-            error: function(error) {
-              alert("Error: " + error);
-            }
-          })
-        });
+      $('#bizzy-submit').bind('click', function() {
+        var store = $('#bizzy-store').val();
+        if (store == "") {
+          alert("Please provide your Shopify store name.");
+          return;
+        }
+        location.href = "https://"+store+".myshopify.com/admin/oauth/authorize?client_id=37dbae720e281c0089bf605364f5a012&scope=write_products,write_content&redirect_uri=http://bizzy.justingenuity.com/coupon.html&state=TEST";
       });
     </script>
   </body>
