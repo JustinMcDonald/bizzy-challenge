@@ -136,6 +136,7 @@ class PrivateAPI {
 	}
 
 	public function setToken($input) {
+		echo $input;
 		$data = filter_var($input, FILTER_VALIDATE_URL) ? $this->initGetData($input) : $input;
 
 		if (preg_match('/<meta name="csrf-token" content="(.*)" \/>/i', $data, $token)) {
@@ -148,7 +149,8 @@ class PrivateAPI {
  			return true;
 		}
 
-		throw new \Exception('Failed to set token');
+		//throw new \Exception('Failed to set token');
+		return false;
 	}
 
 	private function initGetData($url, $opts = []) {
