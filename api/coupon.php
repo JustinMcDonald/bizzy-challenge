@@ -50,17 +50,17 @@ $options = array(
     'http' => array(
         'header'  => "Content-type: application/x-www-form-urlencoded\r\nX-Shopify-Access-Token: $accessToken\r\n",
         'method'  => $requestType,
-        'content' => http_build_query($discount) //$requestJSON
+        'content' => http_build_query($request) //$requestJSON
     )
 );
 $context  = stream_context_create($options);
 $result = file_get_contents($url, false, $context);
 if ($result === FALSE) { 
-	echo json_encode(array('error' => 1, 'message' => $url, 'data' => ""));
+	echo json_encode(array('error' => 1, 'message' => "Error: unable to create shopify coupon.", 'data' => ""));
 	exit;
 }
 
-$response['data'] = $result;
+$response['data'] = json_decode($result);
 
 echo json_encode($response);
 ?>
