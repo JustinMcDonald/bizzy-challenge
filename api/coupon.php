@@ -50,7 +50,7 @@ $options = array(
     'http' => array(
         'header'  => "Content-type: application/x-www-form-urlencoded\r\nX-Shopify-Access-Token: $accessToken\r\n",
         'method'  => $requestType,
-        'content' => $requestJSON
+        'content' => http_build_query($discount) //$requestJSON
     )
 );
 $context  = stream_context_create($options);
